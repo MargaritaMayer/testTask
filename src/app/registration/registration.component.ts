@@ -91,7 +91,7 @@ export class RegistrationComponent implements OnInit {
     surname: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(15), ruTextValidator]),
     email: new FormControl<string | null>(null, [Validators.required, Validators.email,]),
     dateBirth: new FormControl<TuiDay | null>(null, [Validators.required, ageValidator]),
-    password: new FormControl<string | null>(null, [Validators.required, Validators.minLength(8), samePasswordValidator]),
+    password: new FormControl<string | null>(null, [Validators.required, Validators.minLength(8)]),
     password2: new FormControl<string | null>(null, [Validators.required, Validators.minLength(8), samePasswordValidator]),
   });
 
