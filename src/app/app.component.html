@@ -1,0 +1,19 @@
+<tui-root>
+  <ng-container *tuiLet="authService.isShowRegistration$ | async as isShowReg">
+    <ng-container *tuiLet="authService.isShowLogin$ | async as isShowLogin">
+      <div class="auth-container">
+        <app-registration
+          [hidden] = "!isShowReg"
+        ></app-registration>
+        <app-login
+          [hidden] = "!isShowLogin"
+        ></app-login>
+      </div>
+      <div class="table-container">
+        <app-table
+          [hidden] = "isShowLogin || isShowReg"
+        ></app-table>
+      </div>
+    </ng-container>
+  </ng-container>
+</tui-root>

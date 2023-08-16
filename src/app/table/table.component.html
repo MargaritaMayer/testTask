@@ -1,0 +1,107 @@
+<ng-container class="table" *tuiLet="((paginationIndex$ | async) || 0) as pagIndex">
+  <p class="table__title title">Таблица с данными</p>
+  <div class="table__button-wrap">
+      <button
+      tuiButton
+      type="button"
+      class="tui-space_right-3 tui-space_bottom-3 table__button-add"
+      (click)="addRow()"
+    >
+      Добавить запись
+    </button>
+  </div>
+  <form
+  tuiTextfieldSize="m"
+  [tuiTextfieldLabelOutside]="true"
+  *ngIf="tableForm"
+  [formGroup]="tableForm"
+  >
+  <table
+      tuiTable
+      class="table-content"
+  >
+      <thead>
+          <tr>
+              <th tuiTh>UserId</th>
+              <th tuiTh>Id</th>
+              <th tuiTh>Title</th>
+              <th tuiTh>Body</th>
+              <th tuiTh>Кнопка изменения</th>
+          </tr>
+      </thead>
+      <tbody>
+        <!-- .slice(paginationIndex*10, (paginationIndex+1)*10) -->
+
+        <ng-container formArrayName="rowsArray">
+          <ng-container
+
+            *ngFor="let rowsArrayEl of rowsArray.controls.slice(pagIndex*10, (pagIndex+1)*10);
+              let i = index"
+              >
+              <tr [formGroupName]="i"  *tuiLet="rowsArrayEl.value.isEdit as isEdit">
+                  <td tuiTd>
+                    <tui-textarea
+                        [readOnly]='!isEdit'
+                        formControlName="userId"
+                        class="tui-space_top-4 table__id_width table__el_margin"
+                        [expandable]="true"
+                    >
+                      {{rowsArrayEl.value.userId}}
+                    </tui-textarea>
+                  </td>
+                  <td tuiTd>
+                    <tui-textarea
+                        [readOnly] = 'true'
+                        formControlName="id"
+                        class="tui-space_top-4 table__id_width table__el_margin"
+                        [expandable]="true"
+                    >
+                      {{rowsArrayEl.value.id}}
+                  </tui-textarea>
+                  </td>
+                  <td tuiTd>
+                    <tui-textarea
+                        [readOnly]='!isEdit'
+                        formControlName="title"
+                        class="tui-space_top-4 table__title_width table__el_margin"
+                        [expandable]="true"
+                    >
+                      {{rowsArrayEl.value.title}}
+                  </tui-textarea>
+
+                  </td>
+                  <td tuiTd>
+                    <tui-textarea
+                        [readOnly]='!isEdit'
+                        formControlName="body"
+                        class="tui-space_top-4 table__body_width table__el_margin"
+                        [expandable]="true"
+                    >
+                      {{rowsArrayEl.value.body}}
+                  </tui-textarea>
+                  </td>
+                  <td tuiTd class="">
+                    <button
+                      tuiButton
+                      type="button"
+                      class="button"
+                      (click)="changeRow(i)"
+                    >
+                      {{isEdit ?'Сохранить' : 'Изменить запись'}}
+                  </button>
+                  </td>
+              </tr>
+          </ng-container>
+        </ng-container>
+      </tbody>
+  </table>
+  </form>
+
+  <tui-pagination
+      class="table__pagination"
+      [activePadding]="1"
+      [length]="(paginationLength$ | async) || 1"
+      [index]="pagIndex"
+      (indexChange)="changePage($event)"
+  ></tui-pagination>
+</ng-container>

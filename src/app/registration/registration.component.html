@@ -1,0 +1,87 @@
+<tui-island class="island" [hoverable]="true" size="m">
+  <h3 class="title">Регистрация</h3>
+  <form
+    class="b-form form"
+    [formGroup]="registrationForm">
+    <div class="tui-form__row_multi-fields">
+      <div class="form__el el_same-size">
+        <tui-input
+          formControlName="name">
+          Введите имя
+        </tui-input>
+        <tui-error
+          formControlName="name"
+          [error]="[] | tuiFieldError | async"
+        ></tui-error>
+      </div>
+      <div class="form__el el_same-size">
+        <tui-input
+          formControlName="surname">
+          Введите фамилию
+        </tui-input>
+        <tui-error
+          formControlName="surname"
+          [error]="[] | tuiFieldError | async"
+        ></tui-error>
+      </div>
+    </div>
+    <div class="tui-form__row_multi-fields">
+      <div class="form__el el_same-size">
+        <tui-input
+          formControlName="email">
+          Введите email
+        </tui-input>
+        <tui-error
+          formControlName="email"
+          [error]="[] | tuiFieldError | async"
+        ></tui-error>
+      </div>
+      <div class="form__el el_same-size">
+        <tui-input-date
+          [min]="minDay"
+          [max]="maxDay"
+          formControlName="dateBirth"
+        >
+          Дата рождения
+        </tui-input-date>
+        <tui-error
+          formControlName="dateBirth"
+          [error]="[] | tuiFieldError | async"
+        ></tui-error>
+      </div>
+    </div>
+    <div class="tui-form__row_multi-fields">
+      <div class="form__el el_same-size">
+        <tui-input-password
+          formControlName="password">
+          Введите пароль
+        </tui-input-password>
+        <tui-error
+          formControlName="password"
+          [error]="[] | tuiFieldError | async"
+        ></tui-error>
+        </div>
+      <div class="form__el el_same-size">
+        <tui-input-password
+          formControlName="password2">
+          Подтвердите пароль
+        </tui-input-password>
+        <tui-error
+          formControlName="password2"
+          [error]="[] | tuiFieldError | async"
+        ></tui-error>
+      </div>
+    </div>
+    <div class="form__button">
+      <button
+        [disabled]="!registrationForm.valid"
+        tuiButton
+        size="l"
+        type="submit"
+        class="tui-form__button"
+        (click)="authService.submitRegistration(registrationForm)"
+        >  Отправить
+      </button>
+    </div>
+  </form>
+</tui-island>
