@@ -30,23 +30,23 @@
           </tr>
       </thead>
       <tbody>
-        <!-- .slice(paginationIndex*10, (paginationIndex+1)*10) -->
+        <!-- let rowsArrayEl of rowsArray.controls.slice(10, 20);
+              let i = index" -->
 
         <ng-container formArrayName="rowsArray">
           <ng-container
 
-            *ngFor="let rowsArrayEl of rowsArray.controls.slice(pagIndex*10, (pagIndex+1)*10);
-              let i = index"
+            *ngFor="let i of paginationArray$ | async"
               >
-              <tr [formGroupName]="i"  *tuiLet="rowsArrayEl.value.isEdit as isEdit">
+              <tr [formGroupName]="i"  *tuiLet="rowsArray.controls[i].value as value">
                   <td tuiTd>
                     <tui-textarea
-                        [readOnly]='!isEdit'
+                        [readOnly]='!value.isEdit'
                         formControlName="userId"
                         class="tui-space_top-4 table__id_width table__el_margin"
                         [expandable]="true"
                     >
-                      {{rowsArrayEl.value.userId}}
+                      {{value.userId}}
                     </tui-textarea>
                   </td>
                   <td tuiTd>
@@ -56,28 +56,28 @@
                         class="tui-space_top-4 table__id_width table__el_margin"
                         [expandable]="true"
                     >
-                      {{rowsArrayEl.value.id}}
+                      {{value.id}}
                   </tui-textarea>
                   </td>
                   <td tuiTd>
                     <tui-textarea
-                        [readOnly]='!isEdit'
+                        [readOnly]='!value.isEdit'
                         formControlName="title"
                         class="tui-space_top-4 table__title_width table__el_margin"
                         [expandable]="true"
                     >
-                      {{rowsArrayEl.value.title}}
+                      {{value.title}}
                   </tui-textarea>
 
                   </td>
                   <td tuiTd>
                     <tui-textarea
-                        [readOnly]='!isEdit'
+                        [readOnly]='!value.isEdit'
                         formControlName="body"
                         class="tui-space_top-4 table__body_width table__el_margin"
                         [expandable]="true"
                     >
-                      {{rowsArrayEl.value.body}}
+                      {{value.body}}
                   </tui-textarea>
                   </td>
                   <td tuiTd class="">
@@ -87,7 +87,7 @@
                       class="button"
                       (click)="changeRow(i)"
                     >
-                      {{isEdit ?'Сохранить' : 'Изменить запись'}}
+                      {{value.isEdit ?'Сохранить' : 'Изменить запись'}}
                   </button>
                   </td>
               </tr>

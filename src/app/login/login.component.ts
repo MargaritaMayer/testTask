@@ -27,7 +27,14 @@ export class LoginComponent {
 
   constructor(public authService: AuthService) { }
 
-  public form = new FormGroup({
+  ngOnInit(): void {
+    const controls = this.loginForm.controls;
+    this.authService.markControlAsTouched(controls.email);
+    this.authService.markControlAsTouched(controls.password);
+  };
+
+
+  public loginForm = new FormGroup({
     email: new FormControl<string | null>(null, [Validators.required, Validators.email,]),
     password: new FormControl<string | null>(null, [Validators.required, Validators.minLength(8)]),
   });

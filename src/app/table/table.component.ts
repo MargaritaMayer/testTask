@@ -22,7 +22,7 @@ export class TableComponent implements OnInit {
   private paginationSize: number = 10;
   public paginationLength$: BehaviorSubject<number> =  new BehaviorSubject<number>(1);
   public paginationIndex$: BehaviorSubject<number> =  new BehaviorSubject<number>(0);
-
+  public paginationArray$ = new BehaviorSubject<number[]>(Array(10).fill(0).map((_,i)=>i));
 
   async ngOnInit(): Promise<void> {
     const tableRows: TableRow[] | null = await this.tableService.getTableRows();
@@ -51,12 +51,13 @@ export class TableComponent implements OnInit {
 
   public changePage(index: number): void {
     this.paginationIndex$.next(index);
+    this.paginationArray$.next(Array(10).fill(0).map((_,i)=>10*index+i));
   }
 
   public addRow(): void{
     this.rowsArray.insert(0, this.fb.group({
       userId: new FormControl<string>(Math.floor(this.rowsArray.length/10+1).toString()),
-      id: new FormControl<string>(this.rowsArray.length.toString()),
+      id: new FormControl<string>({'value': (this.rowsArray.length+1).toString(), 'disabled': true}),
       title: new FormControl<string>(''),
       body: new FormControl<string>(''),
       isEdit: new FormControl<boolean>(false),

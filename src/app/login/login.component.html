@@ -3,7 +3,7 @@
 
   <form
     class="b-form form"
-    [formGroup]="form">
+    [formGroup]="loginForm">
 
     <div class="tui-form__row_multi-fields">
       <div class="form__el el_same-size">
@@ -31,7 +31,7 @@
     </div>
     <div class="form__button">
       <button
-        [disabled]="!form.valid"
+        [disabled]="!loginForm.valid"
         tuiButton
         size="l"
         type="submit"
